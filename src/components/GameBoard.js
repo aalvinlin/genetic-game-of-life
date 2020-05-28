@@ -5,6 +5,7 @@ const GameBoard = ({rows, cols}) => {
 
     let [gameBoardData, setGameBoardData] = useState([]);
     let [isRunning, setIsRunning] = useState(false);
+    let [currentGeneration, setCurrentGeneration] = useState(0);
 
     const startSimulation = () => {
         setIsRunning(true);
@@ -17,6 +18,62 @@ const GameBoard = ({rows, cols}) => {
     const resetSimulation = () => {
         setIsRunning(false);
         setGameBoardData(createInitialState());
+        setCurrentGeneration(0);
+    }
+
+    const runSimulation = () => {
+
+        console.log("simulation is running...")
+
+        const updateGameBoard = () => {
+            // use a double buffer to update game board
+            let gameBoardBuffer = gameBoardData.slice();
+
+            // create a copy of all entries in the row
+            for (let i = 0; i < gameBoardBuffer.length; i++)
+                { gameBoardBuffer[i] = gameBoardData[i].slice(); }
+
+            // determine how to update each cell in the game
+            for (let row = 0; row < gameBoardBuffer.length; row++)
+                {
+                    for (let col = 0; col < gameBoardBuffer[0].length; col++)
+                        {
+                            let neighbors = 0;
+                            let isAlive = gameBoardBuffer[row][col];
+
+                            // check each of the 8 neighbors for the current cell
+                            for (let rowOffset = -1; rowOffset <= 1; rowOffset++)
+                                {
+                                    for (let colOffset = -1; colOffset <= 1; colOffset++)
+                                        {
+                                            // ignore current square, but process all others
+                                            if (rowOffset && colOffset)
+                                                {
+                                                    if (gameBoardBuffer[row + rowOffset] !== undefined && gameBoardBuffer[row + rowOffset][col + colOffset] !== undefined && gameBoardBuffer[row + rowOffset][col + colOffset])
+                                                        { neighbors += 1; }
+                                                }
+                                        }
+                                }
+
+                            if (isAlive && (neighbors < 2 || neighbors > 3))
+                                { gameBoardBuffer[row][col] = 0; }
+                            
+                            else if (!isAlive && neighbors === 3)
+                                { gameBoardBuffer[row][col] = 1; }
+                        }
+                }
+
+            console.log("udpated!");
+            setGameBoardData(gameBoardBuffer);
+            setCurrentGeneration(currentGeneration + 1);
+        }
+
+        console.log(isRunning, "????")
+
+        if (isRunning && currentGeneration < 100)
+            { console.log("generation", currentGeneration); setTimeout(updateGameBoard, 1000); }
+        else
+            { return; }
     }
 
     const toggleValue = (row, col) => {
@@ -59,6 +116,11 @@ const GameBoard = ({rows, cols}) => {
     useEffect(() => {
         setGameBoardData(createInitialState());
     }, []);
+
+    useEffect(() => {
+        if (isRunning)
+            { runSimulation(); }
+    }, [isRunning])
 
     if (!gameBoardData)
         { return <h2>Loading game board...</h2>}
