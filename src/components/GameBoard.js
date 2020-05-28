@@ -16,10 +16,10 @@ const GameBoard = ({rows, cols}) => {
 
     const resetSimulation = () => {
         setIsRunning(false);
+        setGameBoardData(createInitialState());
     }
 
-    // initialize cellData to the specified number of rows and columns
-    useEffect(() => {
+    const createInitialState = () => {
 
         let gameBoard = [];
         let row = [];
@@ -32,7 +32,14 @@ const GameBoard = ({rows, cols}) => {
         for (let i = 0; i < rows; i++)
             { gameBoard.push(row); }
 
-        setGameBoardData(gameBoard);
+        return gameBoard;
+
+    }
+
+    // initialize cellData to the specified number of rows and columns
+    useEffect(() => {
+
+        setGameBoardData(createInitialState());
 
     }, []);
 
