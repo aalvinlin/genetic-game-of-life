@@ -1,0 +1,74 @@
+body {
+    font-family: Arial, Verdana, sans-serif;
+    margin: 0px;
+}
+
+#root {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.gameboard {
+    width: 90vw;
+    height: 90vw;
+
+    margin: 0 auto;
+
+    border-collapse: separate;
+    border-spacing: 2px;
+    background-color: #EEEEEE;
+}
+
+.gameboard td {
+    text-align: center;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.alive {
+    background-color: #333333;
+    color: #EEEEEE;
+}
+
+.dead {
+    background-color: #EEEEEE;
+    color: #333333;
+}
+
+.hover {
+    background-color: #999999;
+    color: #333333;
+}
+
+.statusDiv {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    width: 90vw;
+}
+
+.statusDiv div {
+    width: 25vw;
+    margin-top: 1rem;
+}
+
+.simulationButtons button {
+    line-height: 2rem;
+    
+    border: 1px solid #666666;
+    background-color: #FFFFFF;
+    border-radius: 2px;
+
+    margin: 0 1rem;
+
+}
+
+.simulationButtons button:hover {
+    cursor: pointer;
+}

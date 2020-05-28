@@ -98,6 +98,25 @@ const GameBoard = ({rows, cols}) => {
             }
     }
 
+    
+    const highlightCell = (event) => {
+
+        // display highlight color only if the simulation isn't running
+        if (!isRunning)
+            {
+                event.target.classList.add("hover")
+            }
+    }
+
+    const removeHighlight = (event) => {
+
+        // display/remove highlight color only if the simulation isn't running
+        if (!isRunning)
+            {
+                event.target.classList.remove("hover")
+            }
+    }
+
     const createInitialState = () => {
 
         let gameBoard = [];
@@ -130,31 +149,38 @@ const GameBoard = ({rows, cols}) => {
 
     return (
         <>
-            <h1>GameBoard</h1>
-
-            <table>
-                {
-                    gameBoardData.map((row, rowID) => {
-                        return (
-                            <tr>
-                                {row.map((cell, colID) => <GameBoardCell value={cell} row={rowID} col={colID} toggleValue={toggleValue} />)}
-                            </tr>
-                        )
-                    })
-                }
+            <table className="gameboard">
+                <tbody>
+                    {
+                        gameBoardData.map((row, rowID) => {
+                            return (
+                                <tr key={"row" + rowID}>
+                                    {row.map((cell, colID) => <GameBoardCell value={cell} row={rowID} col={colID} toggleValue={toggleValue} highlightCell={highlightCell} removeHighlight={removeHighlight} key={"cell" + rowID + "_" + colID}/>)}
+                                </tr>
+                            )
+                        })
+                    }
+                </tbody>
             </table>
 
-            <div className="buttons">
-                {isRunning ? <button className="stop" onClick={stopSimulation}>Stop</button> : <button className="start" onClick={startSimulation}>Start</button> }
-                <button className="reset" onClick={resetSimulation}>Reset</button>
+            <div className="statusDiv">
+
+                <div className="simulationStatus">
+                    <p>Simulation is {isRunning ? "" : "not"} running.</p>
+                </div>
+
+                <div className="simulationButtons">
+                    {isRunning ? <button className="stop" onClick={stopSimulation}>Stop</button> : <button className="start" onClick={startSimulation}>Start</button> }
+                    <button className="reset" onClick={resetSimulation}>Reset</button>
+                </div>
+
+
+                <div className="simulationGeneration">
+                    {/* <p>{isRunning || currentGeneration > 0 ? "Current Generation: " + currentGeneration : ""}</p> */}
+                    <p>Current Generation: {currentGeneration}</p>
+                </div>
+
             </div>
-
-            <div className="statusMessages">
-                <p>Simulation is {isRunning ? "" : "not"} running.</p>
-                <p>{isRunning || currentGeneration > 0 ? "Current Generation: " + currentGeneration : ""}</p>
-            </div>
-
-
 
 
         </>
