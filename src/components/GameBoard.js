@@ -25,6 +25,8 @@ const GameBoard = ({rows, cols}) => {
 
         console.log("simulation is running...")
 
+        let testCounter = 0;
+
         const updateGameBoard = () => {
             // use a double buffer to update game board
             let gameBoardBuffer = gameBoardData.slice();
@@ -64,14 +66,15 @@ const GameBoard = ({rows, cols}) => {
                 }
 
             console.log("udpated!");
+            testCounter += 1;
             setGameBoardData(gameBoardBuffer);
             setCurrentGeneration(currentGeneration + 1);
         }
 
         console.log(isRunning, "????")
 
-        if (isRunning && currentGeneration < 100)
-            { console.log("generation", currentGeneration); setTimeout(updateGameBoard, 1000); }
+        if (isRunning && currentGeneration < 100 && testCounter < 10)
+            { console.log("generation", currentGeneration); setTimeout(updateGameBoard, 100); }
         else
             { return; }
     }
@@ -148,7 +151,7 @@ const GameBoard = ({rows, cols}) => {
 
             <div className="statusMessages">
                 <p>Simulation is {isRunning ? "" : "not"} running.</p>
-                <p>{isRunning ? "Current Generation: " + currentGeneration : ""}</p>
+                <p>{isRunning || currentGeneration > 0 ? "Current Generation: " + currentGeneration : ""}</p>
             </div>
 
 
