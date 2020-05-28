@@ -144,17 +144,24 @@ const GameBoard = ({rows, cols}) => {
                 </tbody>
             </table>
 
-            <div className="buttons">
-                {isRunning ? <button className="stop" onClick={stopSimulation}>Stop</button> : <button className="start" onClick={startSimulation}>Start</button> }
-                <button className="reset" onClick={resetSimulation}>Reset</button>
+            <div className="statusDiv">
+
+                <div className="simulationStatus">
+                    <p>Simulation is {isRunning ? "" : "not"} running.</p>
+                </div>
+
+                <div className="simulationButtons">
+                    {isRunning ? <button className="stop" onClick={stopSimulation}>Stop</button> : <button className="start" onClick={startSimulation}>Start</button> }
+                    <button className="reset" onClick={resetSimulation}>Reset</button>
+                </div>
+
+
+                <div className="simulationGeneration">
+                    {/* <p>{isRunning || currentGeneration > 0 ? "Current Generation: " + currentGeneration : ""}</p> */}
+                    <p>Current Generation: {currentGeneration}</p>
+                </div>
+
             </div>
-
-            <div className="statusMessages">
-                <p>Simulation is {isRunning ? "" : "not"} running.</p>
-                <p>{isRunning || currentGeneration > 0 ? "Current Generation: " + currentGeneration : ""}</p>
-            </div>
-
-
 
 
         </>

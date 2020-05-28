@@ -19,3 +19,31 @@ body {
 
     margin: 0 auto;
 }
+
+.statusDiv {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    width: 90vw;
+}
+
+.statusDiv div {
+    width: 25vw;
+    margin-top: 1rem;
+}
+
+.simulationButtons button {
+    line-height: 2rem;
+    
+    border: 1px solid #666666;
+    background-color: #FFFFFF;
+    border-radius: 2px;
+
+    margin: 0 1rem;
+
+}
+
+.simulationButtons button:hover {
+    cursor: pointer;
+}
