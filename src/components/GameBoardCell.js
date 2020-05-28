@@ -1,9 +1,9 @@
 import React from "react";
 
-const GameBoardCell = ({value}) => {
+const GameBoardCell = ({value, row, col, toggleValue}) => {
 
     return (
-        <td>{value}</td>
+        <td onClick={() => toggleValue(row, col)}>{value}</td>
     )
 }
 
