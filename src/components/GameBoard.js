@@ -98,6 +98,25 @@ const GameBoard = ({rows, cols}) => {
             }
     }
 
+    
+    const highlightCell = (event) => {
+
+        // display highlight color only if the simulation isn't running
+        if (!isRunning)
+            {
+                event.target.classList.add("hover")
+            }
+    }
+
+    const removeHighlight = (event) => {
+
+        // display/remove highlight color only if the simulation isn't running
+        if (!isRunning)
+            {
+                event.target.classList.remove("hover")
+            }
+    }
+
     const createInitialState = () => {
 
         let gameBoard = [];
@@ -136,7 +155,7 @@ const GameBoard = ({rows, cols}) => {
                         gameBoardData.map((row, rowID) => {
                             return (
                                 <tr key={"row" + rowID}>
-                                    {row.map((cell, colID) => <GameBoardCell value={cell} row={rowID} col={colID} toggleValue={toggleValue} key={"cell" + rowID + "_" + colID}/>)}
+                                    {row.map((cell, colID) => <GameBoardCell value={cell} row={rowID} col={colID} toggleValue={toggleValue} highlightCell={highlightCell} removeHighlight={removeHighlight} key={"cell" + rowID + "_" + colID}/>)}
                                 </tr>
                             )
                         })
