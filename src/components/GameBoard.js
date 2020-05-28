@@ -147,8 +147,11 @@ const GameBoard = ({rows, cols}) => {
             </div>
 
             <div className="statusMessages">
-                Simulation is {isRunning ? "" : "not"} running.
+                <p>Simulation is {isRunning ? "" : "not"} running.</p>
+                <p>{isRunning ? "Current Generation: " + currentGeneration : ""}</p>
             </div>
+
+
 
 
         </>
