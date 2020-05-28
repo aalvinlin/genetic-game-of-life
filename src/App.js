@@ -6,7 +6,7 @@ import "./App.css";
  const App = () => {
    
   return (
-    <GameBoard rows={5} cols={5} />
+    <GameBoard rows={25} cols={25} />
   );
 
 }

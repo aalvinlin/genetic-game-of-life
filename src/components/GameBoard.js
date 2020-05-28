@@ -9,6 +9,7 @@ const GameBoard = ({rows, cols}) => {
 
     const startSimulation = () => {
         setIsRunning(true);
+        runSimulation();
     }
 
     const stopSimulation = () => {
@@ -64,12 +65,19 @@ const GameBoard = ({rows, cols}) => {
 
         setGameBoardData(gameBoardBuffer);
         setCurrentGeneration(currentGeneration + 1);
+        setIsRunning(true);
+
+        return currentGeneration + 1;
     }
 
     const runSimulation = () => {
 
-        if (isRunning && currentGeneration < 100 && testCounter < 10)
-            { console.log("generation", currentGeneration); setTimeout(updateGameBoard, 100); }
+        let test = 0;
+
+        console.log("running...", isRunning, test)
+
+        while (test < 100)
+            { console.log("generation", test); setTimeout(advanceSimulation(), 1000); test += 1; }
     }
 
     const toggleValue = (row, col) => {
@@ -132,10 +140,10 @@ const GameBoard = ({rows, cols}) => {
         setGameBoardData(createInitialState());
     }, []);
 
-    useEffect(() => {
-        if (isRunning)
-            { runSimulation(); }
-    }, [isRunning])
+    // useEffect(() => {
+    //     if (isRunning)
+    //         { setTimeout(advanceSimulation, 100); console.log("another round...")}
+    // }, [isRunning])
 
     if (!gameBoardData)
         { return <h2>Loading game board...</h2>}
