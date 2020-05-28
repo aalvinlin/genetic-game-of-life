@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 const GameBoard = ({rows, cols}) => {
 
-    let {cellData, setCellData} = useState([]);
+    let {gameBoardData, setGameBoardData} = useState([]);
 
     // initialize cellData to the specified number of rows and columns
     useEffect(() => {
@@ -18,12 +18,22 @@ const GameBoard = ({rows, cols}) => {
         for (let i = 0; i < rows; i++)
             { gameBoard.push(row); }
 
-        setCellData(gameBoard);        
+        setGameBoardData(gameBoard);        
 
     }, []);
 
     return (
-        <h1>GameBoard</h1>
+        <>
+            <h1>GameBoard</h1>
+
+            <table>
+                
+            </table>
+
+
+        </>
+
+
     )
 
 }
