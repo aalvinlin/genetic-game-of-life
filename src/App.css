@@ -18,6 +18,31 @@ body {
     height: 90vw;
 
     margin: 0 auto;
+
+    border-collapse: separate;
+    border-spacing: 2px;
+    background-color: #EEEEEE;
+}
+
+.gameboard td {
+    text-align: center;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.alive {
+    background-color: #333333;
+    color: #EEEEEE;
+}
+
+.dead {
+    background-color: #EEEEEE;
+    color: #333333;
+}
+
+.hover {
+    background-color: #999999;
+    color: #333333;
 }
 
 .statusDiv {
