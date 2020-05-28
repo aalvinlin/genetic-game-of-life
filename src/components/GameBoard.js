@@ -9,6 +9,7 @@ const GameBoard = ({rows, cols}) => {
 
     const startSimulation = () => {
         setIsRunning(true);
+        runSimulation();
     }
 
     const stopSimulation = () => {
@@ -21,62 +22,62 @@ const GameBoard = ({rows, cols}) => {
         setCurrentGeneration(0);
     }
 
+    const advanceSimulation = () => {
+        
+        // use a double buffer to update game board
+        let gameBoardBuffer = gameBoardData.slice();
+
+        // create a copy of all entries in the row
+        for (let i = 0; i < gameBoardBuffer.length; i++)
+            { gameBoardBuffer[i] = gameBoardData[i].slice(); }
+
+        // determine how to update each cell in the game
+        for (let row = 0; row < gameBoardBuffer.length; row++)
+            {
+                for (let col = 0; col < gameBoardBuffer[0].length; col++)
+                    {
+                        let neighbors = 0;
+                        let isAlive = gameBoardBuffer[row][col];
+
+                        // check each of the 8 neighbors for the current cell
+                        for (let rowOffset = -1; rowOffset <= 1; rowOffset++)
+                            {
+                                for (let colOffset = -1; colOffset <= 1; colOffset++)
+                                    {
+                                        // ignore current square, but process all others
+                                        if (!(rowOffset === 0 && colOffset === 0))
+                                            {
+                                                if (gameBoardData[row + rowOffset] !== undefined
+                                                        && gameBoardData[row + rowOffset][col + colOffset] !== undefined
+                                                        && gameBoardData[row + rowOffset][col + colOffset])
+                                                    { neighbors += 1; }
+                                            }
+                                    }
+                            }
+
+                        if (isAlive && (neighbors < 2 || neighbors > 3))
+                            { gameBoardBuffer[row][col] = 0; }
+                        
+                        else if (!isAlive && neighbors === 3)
+                            { gameBoardBuffer[row][col] = 1; }
+                    }
+            }
+
+        setGameBoardData(gameBoardBuffer);
+        setCurrentGeneration(currentGeneration + 1);
+        setIsRunning(true);
+
+        return currentGeneration + 1;
+    }
+
     const runSimulation = () => {
 
-        console.log("simulation is running...")
+        let test = 0;
 
-        let testCounter = 0;
+        console.log("running...", isRunning, test)
 
-        const updateGameBoard = () => {
-            // use a double buffer to update game board
-            let gameBoardBuffer = gameBoardData.slice();
-
-            // create a copy of all entries in the row
-            for (let i = 0; i < gameBoardBuffer.length; i++)
-                { gameBoardBuffer[i] = gameBoardData[i].slice(); }
-
-            // determine how to update each cell in the game
-            for (let row = 0; row < gameBoardBuffer.length; row++)
-                {
-                    for (let col = 0; col < gameBoardBuffer[0].length; col++)
-                        {
-                            let neighbors = 0;
-                            let isAlive = gameBoardBuffer[row][col];
-
-                            // check each of the 8 neighbors for the current cell
-                            for (let rowOffset = -1; rowOffset <= 1; rowOffset++)
-                                {
-                                    for (let colOffset = -1; colOffset <= 1; colOffset++)
-                                        {
-                                            // ignore current square, but process all others
-                                            if (rowOffset && colOffset)
-                                                {
-                                                    if (gameBoardBuffer[row + rowOffset] !== undefined && gameBoardBuffer[row + rowOffset][col + colOffset] !== undefined && gameBoardBuffer[row + rowOffset][col + colOffset])
-                                                        { neighbors += 1; }
-                                                }
-                                        }
-                                }
-
-                            if (isAlive && (neighbors < 2 || neighbors > 3))
-                                { gameBoardBuffer[row][col] = 0; }
-                            
-                            else if (!isAlive && neighbors === 3)
-                                { gameBoardBuffer[row][col] = 1; }
-                        }
-                }
-
-            console.log("udpated!");
-            testCounter += 1;
-            setGameBoardData(gameBoardBuffer);
-            setCurrentGeneration(currentGeneration + 1);
-        }
-
-        console.log(isRunning, "????")
-
-        if (isRunning && currentGeneration < 100 && testCounter < 10)
-            { console.log("generation", currentGeneration); setTimeout(updateGameBoard, 100); }
-        else
-            { return; }
+        while (test < 100)
+            { console.log("generation", test); setTimeout(advanceSimulation(), 1000); test += 1; }
     }
 
     const toggleValue = (row, col) => {
@@ -139,10 +140,10 @@ const GameBoard = ({rows, cols}) => {
         setGameBoardData(createInitialState());
     }, []);
 
-    useEffect(() => {
-        if (isRunning)
-            { runSimulation(); }
-    }, [isRunning])
+    // useEffect(() => {
+    //     if (isRunning)
+    //         { setTimeout(advanceSimulation, 100); console.log("another round...")}
+    // }, [isRunning])
 
     if (!gameBoardData)
         { return <h2>Loading game board...</h2>}
@@ -171,6 +172,7 @@ const GameBoard = ({rows, cols}) => {
 
                 <div className="simulationButtons">
                     {isRunning ? <button className="stop" onClick={stopSimulation}>Stop</button> : <button className="start" onClick={startSimulation}>Start</button> }
+                    <button className="next" onClick={advanceSimulation}>Next</button>
                     <button className="reset" onClick={resetSimulation}>Reset</button>
                 </div>
 

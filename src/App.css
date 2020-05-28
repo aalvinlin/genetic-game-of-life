@@ -27,7 +27,6 @@ body {
 .gameboard td {
     text-align: center;
     border-radius: 2px;
-    cursor: pointer;
 }
 
 .alive {
@@ -43,6 +42,7 @@ body {
 .hover {
     background-color: #999999;
     color: #333333;
+    cursor: pointer;
 }
 
 .statusDiv {
