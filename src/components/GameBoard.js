@@ -130,18 +130,18 @@ const GameBoard = ({rows, cols}) => {
 
     return (
         <>
-            <h1>GameBoard</h1>
-
-            <table>
-                {
-                    gameBoardData.map((row, rowID) => {
-                        return (
-                            <tr>
-                                {row.map((cell, colID) => <GameBoardCell value={cell} row={rowID} col={colID} toggleValue={toggleValue} />)}
-                            </tr>
-                        )
-                    })
-                }
+            <table className="gameboard">
+                <tbody>
+                    {
+                        gameBoardData.map((row, rowID) => {
+                            return (
+                                <tr key={"row" + rowID}>
+                                    {row.map((cell, colID) => <GameBoardCell value={cell} row={rowID} col={colID} toggleValue={toggleValue} key={"cell" + rowID + "_" + colID}/>)}
+                                </tr>
+                            )
+                        })
+                    }
+                </tbody>
             </table>
 
             <div className="buttons">
