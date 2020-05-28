@@ -4,6 +4,19 @@ import GameBoardCell from "./GameBoardCell";
 const GameBoard = ({rows, cols}) => {
 
     let [gameBoardData, setGameBoardData] = useState([]);
+    let [isRunning, setIsRunning] = useState(false);
+
+    const startSimulation = () => {
+        setIsRunning(true);
+    }
+
+    const stopSimulation = () => {
+        setIsRunning(false);
+    }
+
+    const resetSimulation = () => {
+        setIsRunning(false);
+    }
 
     // initialize cellData to the specified number of rows and columns
     useEffect(() => {
@@ -41,6 +54,15 @@ const GameBoard = ({rows, cols}) => {
                     })
                 }
             </table>
+
+            <div className="buttons">
+                {isRunning ? <button className="stop" onClick={stopSimulation}>Stop</button> : <button className="start" onClick={startSimulation}>Start</button> }
+                <button className="reset" onClick={resetSimulation}>Reset</button>
+            </div>
+
+            <div className="statusMessages">
+                Simulation is {isRunning ? "" : "not"} running.
+            </div>
 
 
         </>
