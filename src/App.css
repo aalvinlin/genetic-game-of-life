@@ -47,7 +47,7 @@ body {
 
 .statusDiv {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
 
     width: 90vw;
@@ -56,6 +56,20 @@ body {
 .statusDiv div {
     width: 25vw;
     margin-top: 1rem;
+}
+
+.statusDiv .spacer, .settingsToggle {
+
+    text-align: center;
+    width: 2rem;
+}
+
+.settingsToggle {
+    cursor: pointer;
+}
+
+.settingsToggle:hover {
+    font-weight: bold;
 }
 
 .simulationButtons button {
@@ -71,4 +85,12 @@ body {
 
 .simulationButtons button:hover {
     cursor: pointer;
+}
+
+.settings {
+    display: none;
+}
+
+.displaySettings {
+    display: block;
 }

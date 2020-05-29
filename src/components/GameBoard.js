@@ -7,6 +7,8 @@ const GameBoard = ({rows, cols}) => {
     let [isRunning, setIsRunning] = useState(false);
     let [currentGeneration, setCurrentGeneration] = useState(0);
 
+    let [displaySettings, setDisplaySettings] = useState(false);
+
     const startSimulation = () => {
         setIsRunning(true);
         runSimulation();
@@ -135,6 +137,10 @@ const GameBoard = ({rows, cols}) => {
 
     }
 
+    const toggleSettings = () => {
+        setDisplaySettings(!displaySettings);
+    }
+
     // initialize cellData to the specified number of rows and columns
     useEffect(() => {
         setGameBoardData(createInitialState());
@@ -166,6 +172,9 @@ const GameBoard = ({rows, cols}) => {
 
             <div className="statusDiv">
 
+                <div className="spacer">
+                </div>
+
                 <div className="simulationStatus">
                     <p>Simulation is {isRunning ? "" : "not"} running.</p>
                 </div>
@@ -182,7 +191,21 @@ const GameBoard = ({rows, cols}) => {
                     <p>Current Generation: {currentGeneration}</p>
                 </div>
 
+                <div className="settingsToggle" onClick={toggleSettings}>
+                &#128736;
+                </div>
+
             </div>
+
+            
+            <div className={"settings" + (displaySettings ? " displaySettings" : "")} onClick={toggleSettings}>
+                
+                <div className="settingsToggle" onClick={toggleSettings}>
+                    X
+                </div>
+                
+            </div>
+
 
 
         </>
