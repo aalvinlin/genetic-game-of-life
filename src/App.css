@@ -89,6 +89,7 @@ body {
 
 .settings {
     display: none;
+    width: 90%;
 }
 
 .displaySettings {

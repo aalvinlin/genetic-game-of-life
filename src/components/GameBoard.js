@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import GameBoardCell from "./GameBoardCell";
 
-const GameBoard = ({rows, cols}) => {
+const GameBoard = ({height, width}) => {
+
+    let [rows, setRows] = useState(height);
+    let [cols, setCols] = useState(width);
 
     let [gameBoardData, setGameBoardData] = useState([]);
     let [isRunning, setIsRunning] = useState(false);
@@ -20,7 +23,7 @@ const GameBoard = ({rows, cols}) => {
 
     const resetSimulation = () => {
         setIsRunning(false);
-        setGameBoardData(createInitialState());
+        setGameBoardData(createInitialState(false));
         setCurrentGeneration(0);
     }
 
@@ -120,18 +123,37 @@ const GameBoard = ({rows, cols}) => {
             }
     }
 
-    const createInitialState = () => {
+    const createInitialState = (startWithRandomAliveCells) => {
 
         let gameBoard = [];
-        let row = [];
-
-        // initialize a row to all zeroes
-        for (let i = 0; i < cols; i++)
-            { row.push(0); }
         
-        // add rows to gameboard
-        for (let i = 0; i < rows; i++)
-            { gameBoard.push(row); }
+        if (startWithRandomAliveCells)
+            {
+                for (let i = 0; i < cols; i++)
+                    {
+                        let row = [];
+
+                        for (let i = 0; i < rows; i++)
+                            {
+                                let value = Math.floor(Math.random() * 4) ? 0 : 1;
+                                row.push(value);
+                            }
+                        
+                        gameBoard.push(row);
+                    }
+            }
+        else
+            {
+                let row = [];
+
+                // initialize a row to all zeroes, or initialize with some alive cells
+                for (let i = 0; i < cols; i++)
+                    { row.push(0); }
+                
+                // add rows to gameboard
+                for (let i = 0; i < rows; i++)
+                    { gameBoard.push(row); }
+            }
 
         return gameBoard;
 
@@ -141,9 +163,39 @@ const GameBoard = ({rows, cols}) => {
         setDisplaySettings(!displaySettings);
     }
 
+    const seedSimulation = () => {
+        if (!isRunning)
+            {
+                setGameBoardData(createInitialState(true));
+            }
+    }
+
+    const updateBoardWidth = (width) => {
+
+        if (!isRunning)
+            {
+                setCols(width);
+                setGameBoardData(createInitialState(false));
+            }
+    }
+
+    const updateBoardHeight = (height) => {
+
+        if (!isRunning)
+            {
+                setRows(height);
+                setGameBoardData(createInitialState(false));
+            }
+    }
+
+    const jumpToGeneration = (n) => {
+        for (let i = 0; i < n; i++)
+            { advanceSimulation(); }
+    }
+
     // initialize cellData to the specified number of rows and columns
     useEffect(() => {
-        setGameBoardData(createInitialState());
+        setGameBoardData(createInitialState(false));
     }, []);
 
     // useEffect(() => {
@@ -192,7 +244,7 @@ const GameBoard = ({rows, cols}) => {
                 </div>
 
                 <div className="settingsToggle" onClick={toggleSettings}>
-                &#128736;
+                    &#128736;
                 </div>
 
             </div>
