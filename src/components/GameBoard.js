@@ -300,6 +300,32 @@ const GameBoard = ({height, width}) => {
                 
             </div>
 
+            <div className="about">
+
+                <h2>About the Game of Life</h2>
+
+                <p>
+                    The Game of Life is a simulation created by John Horton Conway. From a few simple rules, complicated patterns can arise.
+                </p>
+
+                <p>
+                    To determine the next state of the simulation, each cell in the grid is examined. Depending on the number of neighbors it has (checking in all 8 directions), it will be considered either "alive" or "dead".
+                    <br />
+                    <ul>
+                        <li>A cell that is alive will continue living if it has exactly 2 neighbors or 3 neighbors.</li>
+                    </ul>
+                    <ul>
+                        <li>A cell that is dead will become alive if it has exactly 3 neighbors.</li>
+                    </ul>
+                </p>
+
+                <p>
+                    In this particular implementation, cells at the boundary of the simulation are considered to be surrounded by dead cells beyond the boundary.
+                </p>
+
+
+            </div>
+
 
 
         </>

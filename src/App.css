@@ -114,3 +114,9 @@ body {
     display: block;
     margin: 0 auto;
 }
+
+/** About section **/
+
+.about {
+    width: 90%;
+}
