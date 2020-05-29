@@ -250,31 +250,35 @@ const GameBoard = ({height, width}) => {
             </div>
 
             
-            <div className={"settings" + (displaySettings ? " displaySettings" : "")} onClick={toggleSettings}>
+            <div className={"settings" + (displaySettings ? " displaySettings" : "")}>
                 
-                <div className="settingsToggle" onClick={toggleSettings}>
-
-                    <button className="getRandomPattern" onClick={seedSimulation}>Get Random Pattern</button>
-
-                    <label>
-                        Jump to Generation
-                        <input name="jumpToGeneration" type="text" />
-                        <button onClick={jumpToGeneration}>Jump Ahead</button>
-                    </label>
-
-                    <label>
-                        Set Board Width
-                        <input name="setBoardWidth" type="text" />
-                        <button onClick={updateBoardWidth}>Update Width</button>
-                    </label>
-
-                    <label>
-                        Set Board Height
-                        <input name="setBoardHeight" type="text" />
-                        <button onClick={updateBoardHeight}>Update Height</button>
-                    </label>
-
+                <div className="settingsToggle closeButton" onClick={toggleSettings}>
+                    X
                 </div>
+
+                <label>
+                    Get Random Pattern
+                    <button className="getRandomPattern" onClick={seedSimulation}>Randomize</button>
+                </label>
+                
+
+                <label>
+                    Jump to Generation
+                    <input name="jumpToGeneration" type="text" />
+                    <button onClick={jumpToGeneration}>Jump Ahead</button>
+                </label>
+
+                <label>
+                    Set Board Width
+                    <input name="setBoardWidth" type="text" />
+                    <button onClick={updateBoardWidth}>Update Width</button>
+                </label>
+
+                <label>
+                    Set Board Height
+                    <input name="setBoardHeight" type="text" />
+                    <button onClick={updateBoardHeight}>Update Height</button>
+                </label>
                 
             </div>
 

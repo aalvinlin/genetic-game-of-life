@@ -58,7 +58,7 @@ body {
     margin-top: 1rem;
 }
 
-.statusDiv .spacer, .settingsToggle {
+.statusDiv .spacer, .statusDiv .settingsToggle {
 
     text-align: center;
     width: 2rem;
@@ -93,5 +93,24 @@ body {
 }
 
 .displaySettings {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    border: 2px solid #666666;
+
+}
+
+.displaySettings label {
+    margin: 2rem auto;
+}
+
+.displaySettings input {
+    width: 4rem;
     display: block;
+    margin: 0.5rem auto;
+}
+
+.displaySettings button {
+    display: block;
+    margin: 0 auto;
 }
