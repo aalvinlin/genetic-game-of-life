@@ -33,6 +33,8 @@ const GameBoard = ({height, width}) => {
 
     const advanceSimulation = () => {
         
+        console.log("in simulation...")
+
         // use a double buffer to update game board
         let gameBoardBuffer = gameBoardData.slice();
 
@@ -194,13 +196,25 @@ const GameBoard = ({height, width}) => {
 
     const jumpToGeneration = () => {
         for (let i = 0; i < inputGeneration; i++)
-            { advanceSimulation(); console.log(i); }
+            {
+                let result = advanceSimulation();
+                console.log(result);
+            }
     }
 
     // initialize cellData to the specified number of rows and columns
     useEffect(() => {
         setGameBoardData(createInitialState(false));
     }, []);
+
+    useEffect(() => {
+        setCols(inputWidth);
+    }, [inputWidth]);
+
+    useEffect(() => {
+        setRows(inputHeight);
+    }, [inputHeight]);
+
 
     // useEffect(() => {
     //     if (isRunning)
@@ -268,19 +282,19 @@ const GameBoard = ({height, width}) => {
 
                 <label>
                     Jump Ahead by <em>n</em> Generations
-                    <input name="jumpToGeneration" value={inputGeneration} type="text" onChange={setInputGeneration} />
+                    <input name="jumpToGeneration" value={inputGeneration} type="text" onChange={event => setInputGeneration(event.target.value)} />
                     <button onClick={jumpToGeneration}>Jump Ahead</button>
                 </label>
 
                 <label>
                     Set Board Width
-                    <input name="setBoardWidth" value={inputWidth} type="text" onChange={setInputWidth} />
+                    <input name="setBoardWidth" value={inputWidth} type="text" onChange={event => setInputWidth(event.target.value)} />
                     <button onClick={updateBoardWidth}>Update Width</button>
                 </label>
 
                 <label>
                     Set Board Height
-                    <input name="setBoardHeight" value={inputHeight} type="text" onChange={setInputHeight} />
+                    <input name="setBoardHeight" value={inputHeight} type="text" onChange={event => setInputHeight(event.target.value)} />
                     <button onClick={updateBoardHeight}>Update Height</button>
                 </label>
                 
