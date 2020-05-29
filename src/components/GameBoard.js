@@ -201,7 +201,27 @@ const GameBoard = ({rows, cols}) => {
             <div className={"settings" + (displaySettings ? " displaySettings" : "")} onClick={toggleSettings}>
                 
                 <div className="settingsToggle" onClick={toggleSettings}>
-                    X
+
+                    <button className="getRandomPattern" onClick={seedSimulation}>Get Random Pattern</button>
+
+                    <label>
+                        Jump to Generation
+                        <input name="jumpToGeneration" type="text" />
+                        <button onClick={jumpToGeneration}>Jump Ahead</button>
+                    </label>
+
+                    <label>
+                        Set Board Width
+                        <input name="setBoardWidth" type="text" />
+                        <button onClick={updateBoardWidth}>Update Width</button>
+                    </label>
+
+                    <label>
+                        Set Board Height
+                        <input name="setBoardHeight" type="text" />
+                        <button onClick={updateBoardHeight}>Update Height</button>
+                    </label>
+
                 </div>
                 
             </div>
