@@ -16,6 +16,15 @@ const GameBoard = ({height, width}) => {
     let [inputHeight, setInputHeight] = useState(rows);
     let [inputWidth, setInputWidth] = useState(cols);
 
+    let [simulationSpeed, setSimulationSpeed] = useState("medium");
+
+    let simulationSpeedLookup = {
+        "slow": 500,
+        "medium": 100,
+        "fast": 50,
+        "instant": 0
+    }
+
     const startSimulation = () => {
         setIsRunning(true);
         runSimulation();
@@ -195,11 +204,19 @@ const GameBoard = ({height, width}) => {
     }
 
     const jumpToGeneration = () => {
-        for (let i = 0; i < inputGeneration; i++)
-            {
-                let result = advanceSimulation();
-                console.log(result);
-            }
+
+        // let result = advanceSimulation();
+
+        // while (result < inputGeneration + currentGeneration)
+        //     {
+        //         result = advanceSimulation();
+        //     }
+
+        // for (let i = 0; i < inputGeneration; i++)
+        //     {
+        //         let result = advanceSimulation();
+        //         console.log(result);
+        //     }
     }
 
     // initialize cellData to the specified number of rows and columns
@@ -214,6 +231,21 @@ const GameBoard = ({height, width}) => {
     useEffect(() => {
         setRows(inputHeight);
     }, [inputHeight]);
+
+
+    useEffect(() => {
+
+        if (inputGeneration > 0)
+            {
+                advanceSimulation();
+                setTimeout(() => setInputGeneration(inputGeneration - 1), simulationSpeedLookup[simulationSpeed]);
+            }
+        // else
+        //     {
+        //         setIsRunning(false);
+        //     }
+
+    }, [inputGeneration])
 
 
     // useEffect(() => {
